@@ -296,7 +296,14 @@ module.exports = class PlayLevelView extends RootView
     return if @level.isType('web-dev')
     return @waitingToSetUpGod = true unless @god
     @waitingToSetUpGod = undefined
-    @god.setLevel @level.serialize {@supermodel, @session, @otherSession, headless: false, sessionless: false}
+
+    serializedLevel = @level.serialize {@supermodel, @session, @otherSession, headless: false, sessionless: false}
+    # Dependency injection is very difficult, so instead the world always clamps the heroes health if possible.
+    # TODO: Make sure heroes are only being clamped when we expect them to be clamped.
+    if not me.tryClampHeroHealth()
+      delete serializedLevel.recommendedHealth
+      delete serializedLevel.maximumHealth
+    @god.setLevel serializedLevel
     @god.setLevelSessionIDs if @otherSession then [@session.id, @otherSession.id] else [@session.id]
     @god.setWorldClassMap @world.classMap
 

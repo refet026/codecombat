@@ -260,8 +260,7 @@ module.exports = class World
         system.start @thangs
       catch err
         console.error "Error starting system!", system, err
-    if level.type is 'course'
-      @clampHeroHealth(level)
+    @clampHeroHealth(level)
 
   loadSystemsFromLevel: (level) ->
     # Remove old Systems
@@ -691,6 +690,8 @@ module.exports = class World
     'survival-time': @age
     'defeated': @getSystem('Combat')?.defeatedByTeam 'humans'
 
+  # If the level has a recommendedHealth or maximumHealth, enforce it.
+  # This means to prevent clamping you must remove these keys from the serialized level data.
   clampHeroHealth: (level) ->
     hero = _.find @thangs, id: 'Hero Placeholder'
     if hero?
