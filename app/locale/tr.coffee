@@ -1,6 +1,6 @@
 module.exports = nativeDescription: "Türkçe", englishDescription: "Turkish", translation:
   new_home:
-    slogan: "Programlama öğrenmek için en çekici oyun." # {change}
+    slogan: "Programlama öğrenmek için en ilgi çekici oyun." # {change}
     classroom_edition: "Sınıf Sürümü:"
     learn_to_code: "Kodlama öğren:"
     play_now: "Şimdi Oyna"
